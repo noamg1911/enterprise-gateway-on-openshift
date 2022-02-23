@@ -1,4 +1,4 @@
-name: Build enterprise gateway container
+name: Build enterprise gateway image
 
 on:
   workflow_dispatch:
@@ -20,7 +20,6 @@ on:
 
 
 env:
-  # Note: Currently the dockerfile doesn't support using this parameter to change the jupyterhub version
   REGISTRY: ghcr.io
 
 jobs:
@@ -47,6 +46,6 @@ jobs:
       - name: Build and push container image
         uses: docker/build-push-action@v2
         with:
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/jupyterhub:${{ github.event.inputs.tag }}
-          context: .
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/enterprise-gateway:${{ github.event.inputs.tag }}
+          context: dockerfiles/enterprise-gateway
           push: ${{ github.event.inputs.push_container_flag }}
